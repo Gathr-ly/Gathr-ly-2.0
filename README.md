@@ -24,57 +24,57 @@ Scheduling outing app. Users can set dates that they are available and app will 
 
 **Required Must-have Stories**
 
-[x] Login/Sign Up page - User logs in to app if they have an account, otherwise they will sign up for an account.
-[ ] Add a friend - user can add a friend to contact list
-[ ] Invite a friend using a code 
-[ ] User can add availability
-[ ] User can create event
-[ ] User can edit event
-[ ] User can delete event
-[ ] User can view all events
-[ ] User can view overlapping available times for everybody/most people
-[ ] Users in same event can chat together
+* [x] Login/Sign Up page - User logs in to app if they have an account, otherwise they will sign up for an account.
+* [ ] Add a friend - user can add a friend to contact list
+* [ ] Invite a friend using a code 
+* [ ] User can add availability
+* [ ] User can create event
+* [ ] User can edit event
+* [ ] User can delete event
+* [ ] User can view all events
+* [ ] User can view overlapping available times for everybody/most people
+* [ ] Users in same event can chat together
 
 **Optional Nice-to-have Stories**
 
-* Reschedule events from a “past events” list
-* Chat system for each event
+* [ ] Reschedule events from a “past events” list
+* [ ] Chat system for each event
 
 ### 2. Screen Archetypes
 
-[x] Login/Signup - User signs up or logs into their account
-[ ] Friend list
-    [ ] Add a friend button
-    [ ] Can remove friends
-    [ ] See friend requests
-[ ] Events list
-   [ ] Create an event button
-   [ ] See incoming event requests after tapping on a different button?
-   [ ] Can edit and delete events
-   [ ] Event detail screen after tapping on an event in the list
-   [ ] Can use Google Maps to add event location
-   [ ] (Optional) Sorting/searching list
+* [x] Login/Signup - User signs up or logs into their account
+* [ ] Friend list
+    * [ ] Add a friend button
+    * [ ] Can remove friends
+    * [ ] See friend requests
+* [ ] Events list
+   * [ ] Create an event button
+   * [ ] See incoming event requests after tapping on a different button?
+   * [ ] Can edit and delete events
+   * [ ] Event detail screen after tapping on an event in the list
+   * [ ] Can use Google Maps to add event location
+   * [ ] (Optional) Sorting/searching list
 
 ### 3. Navigation
 
 **Tab Navigation** (Tab to Screen)
 
-[x] Login/signup activity
-[x] Main Activity com.herbert.gathr_ly.fragments
-    [ ] Events List as default fragment
-    [ ] Friends List
-[ ] Event detail activity
+* [x] Login/signup activity
+* [x] Main Activity com.herbert.gathr_ly.fragments
+    * [ ] Events List as default fragment
+    * [ ] Friends List
+* [ ] Event detail activity
 
 
 **Flow Navigation** (Screen to Screen)
 
-[x] Login Screen/Sign up screen => Event list
-[ ] Create event button on event list => Create event screen 
-[ ] Create event screen => Event List
-[ ] Create friend button on friend list => Create friend screen
-[ ] Create event => google maps screen
-[ ] Google maps screen => create event
-[ ] Create event => event list
+* [x] Login Screen/Sign up screen => Event list
+* [ ] Create event button on event list => Create event screen 
+* [ ] Create event screen => Event List
+* [ ] Create friend button on friend list => Create friend screen
+* [ ] Create event => google maps screen
+* [ ] Google maps screen => create event
+* [ ] Create event => event list
 
 ### Video Walkthrough 1
 
