@@ -12,8 +12,8 @@ class GatherlyApp : Application() {
 
         Parse.initialize(
             Parse.Configuration.Builder(this)
-                .applicationId("LSL3RNEKy2ICWwp1hM0q8Afi5uATGp18DHqb09GX")
-                .clientKey("he4QJMkz3wt8kumiNPNay1BqRzwMZqGpAqsZQFfI")
+                .applicationId("Cgu7vLlXeUJOQC8rs8quJ3NGNjfr6fxjMIHCuAFP")
+                .clientKey("6n8n8Po68Try8djaRUwkfx5UsFz1Uu4rSKEcFxTe")
                 .server("https://parseapi.back4app.com/")
                 .build());
     }
