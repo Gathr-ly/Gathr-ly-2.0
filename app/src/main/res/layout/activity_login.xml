@@ -57,5 +57,18 @@
         app:layout_constraintTop_toBottomOf="@id/login_button"
         app:layout_constraintVertical_bias="0.095" />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="127dp"
+        android:layout_height="52dp"
+        android:text="Gathr.ly"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/et_username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.677" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
