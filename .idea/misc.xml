@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Admin/Android_project/Gathr-ly-2.0/app/src/main/res/drawable-anydpi/ic_addFriend.xml" value="0.1" />
+        <entry key="..\:/Users/Admin/Android_project/Gathr-ly-2.0/app/src/main/res/layout/activity_friends.xml" value="0.2359375" />
         <entry key="..\:/Users/Admin/Android_project/Gathr-ly-2.0/app/src/main/res/layout/activity_new_friend.xml" value="0.2359375" />
+        <entry key="..\:/Users/Admin/Android_project/Gathr-ly-2.0/app/src/main/res/layout/item_friends.xml" value="0.2359375" />
         <entry key="app/src/main/res/layout/activity_events.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_friends.xml" value="0.13636363636363635" />
         <entry key="app/src/main/res/layout/activity_l.xml" value="0.3029891304347826" />
