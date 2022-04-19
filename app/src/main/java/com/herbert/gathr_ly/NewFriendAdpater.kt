@@ -8,8 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.parse.ParseUser
 
-class NewFriendAdpater (val context: Context, val friends: MutableList<User>): RecyclerView.Adapter<NewFriendAdpater.ViewHolder>(){
+class NewFriendAdpater (val context: Context, val friends: MutableList<ParseUser>): RecyclerView.Adapter<NewFriendAdpater.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_friends, parent, false)
@@ -33,9 +34,21 @@ class NewFriendAdpater (val context: Context, val friends: MutableList<User>): R
             friendId = itemView.findViewById(R.id.friendId)
         }
 
-        fun bind(friend : User){
-            friendName.text = friend.getUsername()
-            friendId.text = friend.getUserId()
+        fun bind(friend : ParseUser){
+            friendName.text = friend.username
+            friendId.text = friend.objectId
         }
+    }
+
+    // Clean all elements of the recycler
+    fun clear() {
+        friends.clear()
+        notifyDataSetChanged()
+    }
+
+    // Add a list of items -- change to type used
+    fun addAll(nfList: List<ParseUser>) {
+        friends.addAll(nfList)
+        notifyDataSetChanged()
     }
 }

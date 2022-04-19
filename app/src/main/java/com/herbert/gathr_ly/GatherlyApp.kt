@@ -3,6 +3,7 @@ package com.herbert.gathr_ly
 import android.app.Application
 import com.parse.Parse
 import com.parse.ParseObject
+import com.parse.ParseUser
 
 class GatherlyApp : Application() {
     override fun onCreate() {
