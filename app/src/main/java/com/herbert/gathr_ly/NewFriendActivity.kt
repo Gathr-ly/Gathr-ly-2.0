@@ -8,8 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.parse.FindCallback
-import com.parse.ParseException
 import com.parse.ParseQuery
 import com.parse.ParseUser
 
@@ -33,59 +31,49 @@ class NewFriendActivity : AppCompatActivity() {
         findViewById<Button>(R.id.nf_searchButton).setOnClickListener{
             val nf_username = findViewById<EditText>(R.id.nf_username).text.toString()
             val nf_userid = findViewById<EditText>(R.id.nf_userid).text.toString()
-            queryNewFriend()
+            if(nf_username == ParseUser.getCurrentUser().username || nf_userid == ParseUser.getCurrentUser().objectId){
+                newfriendadapter.clear()
+                Toast.makeText(this, "You cannot add yourself as a friend", Toast.LENGTH_SHORT).show()
+            }
+            else if(nf_username != "" || nf_userid != "") {
+                queryNewFriend(nf_username, nf_userid)
+            }
+            else{
+                newfriendadapter.clear()
+                Toast.makeText(this, "No input", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
 
 
-    fun queryNewFriend(){
+    fun queryNewFriend(nf_username: String, nf_userid: String){
         //Specify which class to query
         val query: ParseQuery<ParseUser> = ParseUser.getQuery()
 
+        if(nf_userid != "" && nf_userid != null) {
+            query.whereEqualTo(ParseUser.KEY_OBJECT_ID, nf_userid)
+        }
+        if(nf_username != "" && nf_username != null){
+            query.whereEqualTo("username", nf_username)
+        }
+
         query.findInBackground { newFriends, e ->
             if (e == null) {
-                for (friend in newFriends) {
-                    Log.i(TAG, "Username: " + friend.username + "UserId" + friend.objectId)
-                    //newfriendadapter.clear()
-                    //newfriendadapter.addAll(newFriends)
-                }
-            } else {
-                Log.e(TAG, "Error fetching posts")
-            }
-        }
-
-
-        /*
-        val query: ParseQuery<User> = ParseQuery.getQuery(User::class.java)
-        query.include(User.KEY_USERNAME)
-        query.include(User.KEY_OBJECTID)
-
-        if(nf_userid != "") {
-            query.whereEqualTo(User.KEY_OBJECTID, nf_userid)
-        }
-        if(nf_username != ""){
-            query.whereEqualTo(User.KEY_USERNAME, nf_username)
-        }
-
-        query.findInBackground(object: FindCallback<ParseUser>{
-            override fun done(newFriends: MutableList<ParseUser>?, e: ParseException?) {
-                if(e != null){
-                    //Something went wrong
-                    Log.e(TAG, "Error fetching posts")
+                if(newFriends == null || newFriends.size == 0){
+                    Toast.makeText(this, "Invalid Username/UserId", Toast.LENGTH_SHORT).show()
                 }
                 else{
-                    if (newFriends != null){
-                        for(friend in newFriends){
-                            Log.i(TAG, "Username: " + friend.username + "UserId"+ friend.objectId)
-                        }
+                    for (friend in newFriends) {
+                        Log.i(TAG, "Username: " + friend.username + " UserId: " + friend.objectId)
                         newfriendadapter.clear()
                         newfriendadapter.addAll(newFriends)
                     }
                 }
+            } else {
+                Log.e(TAG, "Error fetching User")
             }
-        })
-        */
+        }
     }
 
     companion object{

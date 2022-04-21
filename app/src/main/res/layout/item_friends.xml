@@ -27,7 +27,7 @@
         tools:text="#QGpmIavqFX" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_baseline_add_circle_outline_24"
