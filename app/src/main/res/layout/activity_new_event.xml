@@ -9,43 +9,78 @@
     android:layout_marginEnd="20dp">
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/etEventName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:hint="Event Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="20dp"/>
 
     <EditText
-        android:id="@+id/editTextTextMultiLine"
+        android:id="@+id/etDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
         android:gravity="start|top"
         android:inputType="textMultiLine"
+        android:hint="Event Details"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
+        app:layout_constraintTop_toBottomOf="@+id/etEventName"
         android:layout_marginTop="20dp"/>
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/calendarView"
+    <Button
+        android:id="@+id/btDays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/editTextTextMultiLine"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Edit Days"
+        app:layout_constraintTop_toBottomOf="@id/etDetails"
         app:layout_constraintStart_toStartOf="parent"
-        app:mcv_selectionMode="multiple"/>
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <SearchView
+        android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView"
+        app:layout_constraintTop_toBottomOf="@+id/btDays"
         android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/tvAddedUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Added Users"
+        app:layout_constraintTop_toBottomOf="@+id/search"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvFilteredUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Filtered Users"
+        app:layout_constraintTop_toBottomOf="@+id/search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tvAddedUsers"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvAddedUsers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvAddedUsers"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvAddedUsers"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFilteredUsers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tvFilteredUsers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvFilteredUsers"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
