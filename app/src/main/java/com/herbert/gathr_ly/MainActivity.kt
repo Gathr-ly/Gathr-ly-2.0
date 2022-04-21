@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         // queryPosts()
     }
 
-    fun newEventAction(view: View) {
+    fun newEventScreenAction(view: View) {
         val intent = Intent(this@MainActivity, NewEventActivity::class.java)
         startActivity(intent)
     }

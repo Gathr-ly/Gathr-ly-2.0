@@ -1,17 +1,19 @@
 package com.herbert.gathr_ly
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.SearchView
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.parse.ParseQuery
 import com.parse.ParseUser
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+
 
 class NewEventActivity : AppCompatActivity() {
 
@@ -25,6 +27,7 @@ class NewEventActivity : AppCompatActivity() {
     private lateinit var rvFilteredUsers: RecyclerView
     private var addedUserAdapter: EventAddedFriendAdapter? = null
     private var filteredFriendAdapter: EventFilteredFriendAdapter? = null
+    private lateinit var calendar: MaterialCalendarView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +39,7 @@ class NewEventActivity : AppCompatActivity() {
         search = findViewById(R.id.search)
         rvAddedUsers = findViewById(R.id.rvAddedUsers)
         rvFilteredUsers = findViewById(R.id.rvFilteredUsers)
+        calendar = findViewById(R.id.calendar)
 
         search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -78,7 +82,6 @@ class NewEventActivity : AppCompatActivity() {
                 addedUserAdapter!!.notifyDataSetChanged()
             }
         })
-
         rvFilteredUsers.adapter = filteredFriendAdapter
         rvFilteredUsers.layoutManager = LinearLayoutManager(this)
 
@@ -130,9 +133,26 @@ class NewEventActivity : AppCompatActivity() {
                 Log.e(TAG, "Error fetching filtered friends")
             }
         }
+    }
 
 
 
+    fun editDaysAction(view: View) {
+        val popupView = LayoutInflater.from(this).inflate(R.layout.popup_edit_days, null)
+        val width = ConstraintLayout.LayoutParams.WRAP_CONTENT
+        val height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+        val focusable = true
+        val popupWindow = PopupWindow(popupView, width, height, focusable)
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
+        TODO("load days from list")
+    }
+
+    fun saveDaysAction(view: View) {
+        TODO("save days to a list")
+    }
+
+    fun newEventAction(view: View) {
+        TODO("CREATE NEW EVENT OBJECT")
     }
 
     companion object {
