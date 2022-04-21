@@ -1,6 +1,7 @@
 package com.herbert.gathr_ly
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,26 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.parse.ParseUser
 
-class EventFriendAdapter (val context: Context, val filteredFriends: MutableList<ParseUser>): RecyclerView.Adapter<EventFriendAdapter.ViewHolder>(){
+class EventFilteredFriendAdapter (
+        val context: Context, val filteredFriends: MutableList<ParseUser>
+): RecyclerView.Adapter<EventFilteredFriendAdapter.ViewHolder>(){
+
+    // Define listener member variable
+    private var listener: OnItemClickListener? = null
+
+    // Define the listener interface
+    interface OnItemClickListener {
+        fun onItemClick(itemView: View?, position: Int)
+    }
+
+    // Define the method that allows the parent activity or fragment to define the listener
+    fun setOnItemClickListener(listener: OnItemClickListener?) {
+        this.listener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_friends, parent, false)
-        return ViewHolder(view)
+        val view = LayoutInflater.from(context).inflate(R.layout.item_filtered_friends, parent, false)
+        return ViewHolder(view, listener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -25,24 +41,25 @@ class EventFriendAdapter (val context: Context, val filteredFriends: MutableList
         return filteredFriends.size
     }
 
-    class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View, clickListener: OnItemClickListener?): RecyclerView.ViewHolder(itemView){
         val friendName: TextView
         val friendId: TextView
         lateinit var user: ParseUser
         val addButton: ImageButton
+        val clickListener = clickListener
         init {
             friendName = itemView.findViewById(R.id.friendName)
             friendId = itemView.findViewById(R.id.friendId)
-            addButton = itemView.findViewById(R.id.imageButton)
-            addButton.setOnClickListener { view ->
-
-            }
+            addButton = itemView.findViewById(R.id.addButton)
         }
 
         fun bind(friend : ParseUser){
             friendName.text = friend.username
-            friendId.text = friend.objectId
+            friendId.text = "#" + friend.objectId
             user = friend
+            addButton.setOnClickListener {
+                clickListener?.onItemClick(itemView, adapterPosition)
+            }
         }
     }
 
