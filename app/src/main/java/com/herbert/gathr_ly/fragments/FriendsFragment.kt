@@ -23,9 +23,6 @@ class FriendsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.button1).setOnClickListener {
-            val intent = Intent(requireContext(), NewFriendActivity::class.java)
-            startActivity(intent)
-        }
+
     }
 }
