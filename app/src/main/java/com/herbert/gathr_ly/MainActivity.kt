@@ -1,7 +1,9 @@
 package com.herbert.gathr_ly
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -49,6 +51,10 @@ class MainActivity : AppCompatActivity() {
         // queryPosts()
     }
 
+    fun newEventAction(view: View) {
+        val intent = Intent(this@MainActivity, NewEventActivity::class.java)
+        startActivity(intent)
+    }
 
     companion object {
         const val TAG = "MainActivity"
