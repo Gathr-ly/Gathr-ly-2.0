@@ -10,6 +10,7 @@ class GatherlyApp : Application() {
         super.onCreate()
 
         ParseObject.registerSubclass(Post::class.java)
+        ParseObject.registerSubclass(Friend::class.java)
 
         Parse.initialize(
             Parse.Configuration.Builder(this)
