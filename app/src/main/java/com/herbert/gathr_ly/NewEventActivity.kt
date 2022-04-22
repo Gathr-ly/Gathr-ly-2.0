@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.parse.ParseQuery
 import com.parse.ParseUser
+import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
+import org.json.JSONArray
+import org.json.JSONObject
 
 
 class NewEventActivity : AppCompatActivity() {
@@ -27,7 +30,6 @@ class NewEventActivity : AppCompatActivity() {
     private lateinit var rvFilteredUsers: RecyclerView
     private var addedUserAdapter: EventAddedFriendAdapter? = null
     private var filteredFriendAdapter: EventFilteredFriendAdapter? = null
-    private lateinit var calendar: MaterialCalendarView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,6 @@ class NewEventActivity : AppCompatActivity() {
         search = findViewById(R.id.search)
         rvAddedUsers = findViewById(R.id.rvAddedUsers)
         rvFilteredUsers = findViewById(R.id.rvFilteredUsers)
-        calendar = findViewById(R.id.calendar)
 
         search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -135,27 +136,51 @@ class NewEventActivity : AppCompatActivity() {
         }
     }
 
-
+    private lateinit var calendar: MaterialCalendarView
+    private val days = mutableListOf<CalendarDay>()
+    private lateinit var popupView: View
+    private lateinit var popupWindow: PopupWindow
 
     fun editDaysAction(view: View) {
-        val popupView = LayoutInflater.from(this).inflate(R.layout.popup_edit_days, null)
+        popupView = LayoutInflater.from(this).inflate(R.layout.popup_edit_days, null)
+        calendar = popupView.findViewById(R.id.calendar)
         val width = ConstraintLayout.LayoutParams.WRAP_CONTENT
         val height = ConstraintLayout.LayoutParams.WRAP_CONTENT
         val focusable = true
-        val popupWindow = PopupWindow(popupView, width, height, focusable)
+        popupWindow = PopupWindow(popupView, width, height, focusable)
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
-        TODO("load days from list")
+        for (date in days) {
+            calendar.setDateSelected(date, true)
+        }
     }
 
     fun saveDaysAction(view: View) {
-        TODO("save days to a list")
+        days.clear()
+        days.addAll(calendar.selectedDates)
+        popupWindow.dismiss()
+        Toast.makeText(this, "Saved days", Toast.LENGTH_SHORT).show()
     }
 
     fun newEventAction(view: View) {
-        TODO("CREATE NEW EVENT OBJECT")
+//        TODO("CREATE NEW EVENT OBJECT")
+        val daysList = mutableListOf<String>()
+        for (day in days) {
+            daysList.add(Event.calendarDayToString(day))
+        }
+        val daysJsonArray = JSONArray(daysList)
+        Log.i(TAG, daysJsonArray.toString())
     }
 
     companion object {
         const val TAG = "NewEventActivity"
     }
+
+    // Create Event class
+    // - also in Parse
+    // Make newEventAction create and persist an event object
+    // Make the events fragment show current user's events
+    // - refreshable
+    // Make detail view
+    // - can add schedule
+    // - shows overlapping times
 }
