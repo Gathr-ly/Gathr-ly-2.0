@@ -11,6 +11,8 @@ class GatherlyApp : Application() {
 
         ParseObject.registerSubclass(Post::class.java)
         ParseObject.registerSubclass(Friend::class.java)
+        ParseObject.registerSubclass(Event::class.java)
+        ParseObject.registerSubclass(EventHelper::class.java)
 
         Parse.initialize(
             Parse.Configuration.Builder(this)
