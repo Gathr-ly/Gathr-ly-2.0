@@ -1,5 +1,6 @@
 package com.herbert.gathr_ly
 
+import android.os.Parcelable
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseUser
@@ -7,22 +8,36 @@ import com.prolificinteractive.materialcalendarview.CalendarDay
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.regex.Pattern
+import kotlinx.parcelize.Parcelize
 
 // creator: ParseUser
+// creatorUsername: String
 // eventName: String
 // eventDetails: String
 // days: JsonArray of strings
 // users: JsonArray of strings
+// usernames: JsonArray of strings
 // schedules: JsonObject (user object ID ->
 //                          Json Object (day string ->
 //                              Json boolean array for schedule) )
 
+@Parcelize
 @ParseClassName("Event")
-class Event: ParseObject() {
+class Event: ParseObject(), Parcelable {
 
-    init {
-//        put(KEY_CREATOR, ParseUser.getCurrentUser())
-    }
+//    var myCreatorUsername: String = ""
+//    var myName: String = ""
+//    var myDetails: String = ""
+//    var myUsernames: JSONArray = JSONArray()
+//    var myDays: MutableList<String> = mutableListOf()
+//
+//    fun saveData() {
+//        myCreatorUsername = getCreatorUsername()!!
+//        myName = getName()!!
+//        myDetails = getDetails()!!
+//        myUsernames = getUsernames()!!
+//        myDays = getDays()
+//    }
 
     fun getCreator(): ParseUser? {
         return getParseUser(KEY_CREATOR)
@@ -30,6 +45,14 @@ class Event: ParseObject() {
 
     fun setCreator() {
         put(KEY_CREATOR, ParseUser.getCurrentUser())
+    }
+
+    fun getCreatorUsername(): String? {
+        return getString(KEY_CREATOR_USERNAME)
+    }
+
+    fun setCreatorUsername() {
+        put(KEY_CREATOR_USERNAME, ParseUser.getCurrentUser().username)
     }
 
     fun getName(): String? {
@@ -76,14 +99,22 @@ class Event: ParseObject() {
         usersPlusCreator.add(ParseUser.getCurrentUser())
 
         val userJsonArray = JSONArray()
+        val usernameJsonArray = JSONArray()
         val scheduleJsonObject = JSONObject()
         for (user in usersPlusCreator) {
             userJsonArray.put(user.objectId)
+            usernameJsonArray.put(user.username)
             scheduleJsonObject.put(user.objectId, JSONObject())
         }
         put(KEY_USERS, userJsonArray)
+        put(KEY_USERNAMES, usernameJsonArray)
         put(KEY_SCHEDULES, scheduleJsonObject)
         setCreator()
+        setCreatorUsername()
+    }
+
+    fun getUsernames(): JSONArray? {
+        return getJSONArray(KEY_USERNAMES)
     }
 
     fun getSchedules(): JSONObject? {
@@ -103,7 +134,7 @@ class Event: ParseObject() {
         val list = mutableListOf<String>()
         var max = 0
         for (i in 0 until getDays().size) {
-            val day = getDays()[0]
+            val day = getDays()[i]
             val countForDay = IntArray(24)
             for (j in 0 until getUsers()!!.length()) {
                 val userId = getUsers()!!.getString(j)
@@ -123,9 +154,11 @@ class Event: ParseObject() {
                     list.clear()
                     max = x
                 }
-                for (hour in countForDay.indices) {
-                    if (countForDay[hour] == max && list.size < 3) {
-                        list.add("$day - $hour:00")
+                if (max >= 2) {
+                    for (hour in countForDay.indices) {
+                        if (countForDay[hour] == max && list.size < 3) {
+                            list.add("$day - $hour:00")
+                        }
                     }
                 }
             }
@@ -138,16 +171,19 @@ class Event: ParseObject() {
 
     companion object {
         const val KEY_CREATOR = "creator"
+        const val KEY_CREATOR_USERNAME = "creatorUsername"
         const val KEY_NAME = "name"
         const val KEY_DETAILS = "details"
         const val KEY_DAYS = "days"
         const val KEY_USERS = "users"
+        const val KEY_USERNAMES = "usernames"
         const val KEY_SCHEDULES = "schedules"
 
         fun stringToCalendarDay(str: String): CalendarDay {
-            val p = Pattern.compile("(\\d+)/(\\d+)/(\\d+)")
-            val m = p.matcher(str)
-            return CalendarDay.from(m.group(3).toInt(), m.group(1).toInt(), m.group(2).toInt())
+            val r = Regex("(\\d+)/(\\d+)/(\\d+)")
+            val m = r.matchEntire(str)
+            val groupValues = m?.groupValues
+            return CalendarDay.from(groupValues!![3].toInt(), groupValues!![1].toInt(), groupValues!![2].toInt())
         }
 
         fun calendarDayToString(day: CalendarDay): String {
