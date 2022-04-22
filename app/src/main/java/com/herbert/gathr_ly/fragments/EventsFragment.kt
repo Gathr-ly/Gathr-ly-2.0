@@ -55,6 +55,11 @@ class EventsFragment : Fragment() {
         queryEvents()
     }
 
+    override fun onResume() {
+        super.onResume()
+        queryEvents()
+    }
+
     private fun queryEvents() {
         val query: ParseQuery<EventHelper> = ParseQuery.getQuery(EventHelper::class.java)
         query.include(EventHelper.KEY_USER)
@@ -65,17 +70,16 @@ class EventsFragment : Fragment() {
                 Log.e(TAG, "Error fetching event helpers")
                 e.printStackTrace()
             } else {
-                if (EventHelperList != null) {
-                    for (eventHelper in EventHelperList) {
-                        val event = eventHelper.getEvent()!!
-                        Log.i(TAG, "Name: " + event.getName() + " , Details: " + event.getDetails())
-                        allEvents.add(event)
-                        adapter.notifyDataSetChanged()
-                    }
+                allEvents.clear()
+                for (eventHelper in EventHelperList) {
+                    val event = eventHelper.getEvent()!!
+                    Log.i(TAG, "Name: " + event.getName() + " , Details: " + event.getDetails())
+                    allEvents.add(event)
+                    adapter.notifyDataSetChanged()
                 }
+                Log.i(TAG, "finished querying events")
+                swipeContainer.isRefreshing = false
             }
-            Log.i(TAG, "finished querying events")
-            swipeContainer.isRefreshing = false
         }
     }
 

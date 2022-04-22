@@ -160,7 +160,6 @@ class NewEventActivity : AppCompatActivity() {
     }
 
     fun newEventAction(view: View) {
-//        TODO("CREATE NEW EVENT OBJECT")
         if (etEventName.text.isNullOrBlank() || etDetails.text.isNullOrBlank() ||
                 days.isEmpty() || addedUsers.isEmpty()) {
             Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show()
@@ -178,18 +177,12 @@ class NewEventActivity : AppCompatActivity() {
                 } else {
                     Log.i(TAG, "Successfully created new event")
                     Toast.makeText(this, "Successfully created new event", Toast.LENGTH_SHORT).show()
+
                     val addedUsersPlusCreator = mutableListOf<ParseUser>()
                     addedUsersPlusCreator.addAll(addedUsers)
                     addedUsersPlusCreator.add(ParseUser.getCurrentUser())
+
                     for (user in addedUsersPlusCreator) {
-//                        var events = user.getJSONArray(KEY_EVENTS)
-//                        if (events == null) {
-//                            events = JSONArray()
-//                        }
-//                        events.put(event.objectId)
-//                        user.put(KEY_EVENTS, events)
-//                        user.put("username", user.username + "1")
-//                        user.saveInBackground()
                         val eventHelper = EventHelper()
                         eventHelper.setUser(user)
                         eventHelper.setEvent(event)

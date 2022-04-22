@@ -154,5 +154,4 @@ class Event: ParseObject() {
             return String.format(String.format("%s/%s/%s", day.month, day.day, day.year))
         }
     }
-
 }
