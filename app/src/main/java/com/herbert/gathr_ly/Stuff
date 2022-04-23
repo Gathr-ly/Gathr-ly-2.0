@@ -1,79 +1,32 @@
-class ComposeFragment : Fragment() {
-       override fun onCreate(savedInstanceState: Bundle?) {
-               super.onCreate(savedInstanceState)
-               setContentView(R.layout.activity_login)
-               }
+ ComposeFragment : Fragment() {
 
-New Events Page
+    val photoFileName = "photo.jpg"
+    var photoFile: File? = null
+    lateinit var ivPreview: ImageView
+    val CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034
 
-put something here
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".com.herbert.gathr_ly.fragments.ComposeFragment">
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_compose, container, false)
+    }
 
-    <Button
-        android:id="@+id/btnTakePicture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Take Picture"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description"/>
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //Set onclicklisteners and logic stuff
 
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"/>
+        ivPreview = view.findViewById(R.id.imageView)
 
-    <EditText
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:hint="Description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="400dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnTakePicture"
-        tools:srcCompat="@tools:sample/avatars" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".com.herbert.gathr_ly.fragments.FeedFragment">
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/postRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-</FrameLayout>
+        view.findViewById<Button>(R.id.btnSubmit).setOnClickListener{
+            // send post to server without image
+            // get the description that they have inputted
+            val description = view.findViewById<EditText>(R.id.description).text.toString()
+            val user = ParseUser.getCurrentUser()
+            if (photoFile != null) {
+                submitPost(description, user, photoFile!!)
+            } else {
+                // Print error message
+            }
+        }
