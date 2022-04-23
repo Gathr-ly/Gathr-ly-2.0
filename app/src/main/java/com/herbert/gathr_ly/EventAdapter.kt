@@ -6,15 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.os.bundleOf
 import androidx.recyclerview.widget.RecyclerView
-import com.herbert.gathr_ly.Event
-import com.herbert.gathr_ly.R
 import com.herbert.gathr_ly.fragments.EventsFragment
-
-const val EVENT_EXTRA = "EVENT_EXTRA"
 
 class EventAdapter(val context: Context, val events: MutableList<Event>) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
@@ -77,31 +71,13 @@ class EventAdapter(val context: Context, val events: MutableList<Event>) : Recyc
         override fun onClick(p0: View?) {
             Log.i(EventsFragment.TAG, "Clicked on position: $adapterPosition")
             val event = events[adapterPosition]
-//            event.saveData()
             val intent = Intent(context, EventDetailActivity::class.java)
-//            intent.putExtra(EVENT_EXTRA, event)
-
-            var usernames = ""
-            val usernamesJsonArray = event.getUsernames()
-            for (i in 0 until usernamesJsonArray!!.length()) {
-                val username = usernamesJsonArray!!.getString(i)
-                usernames += if (usernames == "") {
-                    username
-                } else {
-                    ", $username"
-                }
-            }
-
-            val bundle = bundleOf(
-                Pair(Event.KEY_NAME, event.getName()),
-                Pair(Event.KEY_CREATOR_USERNAME, event.getCreatorUsername()),
-                Pair(Event.KEY_DETAILS, event.getDetails()),
-                Pair(Event.KEY_USERNAMES, usernames),
-                Pair(Event.KEY_DAYS, event.getDays())
-            )
-            intent.putExtra("bundle", bundle)
+            intent.putExtra(KEY_OBJECT_ID, event.objectId)
             context.startActivity(intent)
         }
+    }
 
+    companion object {
+        const val KEY_OBJECT_ID = "objectId"
     }
 }

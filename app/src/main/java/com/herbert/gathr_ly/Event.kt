@@ -1,14 +1,11 @@
 package com.herbert.gathr_ly
 
-import android.os.Parcelable
 import com.parse.ParseClassName
 import com.parse.ParseObject
 import com.parse.ParseUser
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import org.json.JSONArray
 import org.json.JSONObject
-import java.util.regex.Pattern
-import kotlinx.parcelize.Parcelize
 
 // creator: ParseUser
 // creatorUsername: String
@@ -21,23 +18,8 @@ import kotlinx.parcelize.Parcelize
 //                          Json Object (day string ->
 //                              Json boolean array for schedule) )
 
-@Parcelize
 @ParseClassName("Event")
-class Event: ParseObject(), Parcelable {
-
-//    var myCreatorUsername: String = ""
-//    var myName: String = ""
-//    var myDetails: String = ""
-//    var myUsernames: JSONArray = JSONArray()
-//    var myDays: MutableList<String> = mutableListOf()
-//
-//    fun saveData() {
-//        myCreatorUsername = getCreatorUsername()!!
-//        myName = getName()!!
-//        myDetails = getDetails()!!
-//        myUsernames = getUsernames()!!
-//        myDays = getDays()
-//    }
+class Event: ParseObject() {
 
     fun getCreator(): ParseUser? {
         return getParseUser(KEY_CREATOR)
@@ -119,6 +101,12 @@ class Event: ParseObject(), Parcelable {
 
     fun getSchedules(): JSONObject? {
         return getJSONObject(KEY_SCHEDULES)
+    }
+
+    fun setSchedule(userId: String, schedules: JSONObject) {
+        val scheduleJsonObject = getSchedules()
+        scheduleJsonObject!!.put(userId, schedules)
+        put(KEY_SCHEDULES, scheduleJsonObject)
     }
 
     private var bestTimes: MutableList<String>? = null
