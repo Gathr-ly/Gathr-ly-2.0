@@ -48,9 +48,9 @@ class EventDetailActivity : AppCompatActivity() {
         query.getFirstInBackground { _event, e ->
             if (e == null) {
                 event = _event
-                tvName.text = tvName.text.toString() + event.getName()
-                tvCreator.text = tvCreator.text.toString() + event.getCreatorUsername()
-                tvDetails.text = tvDetails.text.toString() + event.getDetails()
+                tvName.text = "Name: " + event.getName()
+                tvCreator.text = "Creator: " + event.getCreatorUsername()
+                tvDetails.text = "Details: " + event.getDetails()
 
                 var usernames = ""
                 val usernamesJsonArray = event.getUsernames()
@@ -62,7 +62,7 @@ class EventDetailActivity : AppCompatActivity() {
                         ", $username"
                     }
                 }
-                tvUsers.text = tvUsers.text.toString() + usernames
+                tvUsers.text = "Usernames: " + usernames
 
                 val bestTimesList = event.bestTimes()
                 var result = "Best times: "
