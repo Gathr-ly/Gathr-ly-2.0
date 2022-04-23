@@ -54,6 +54,10 @@ Scheduling outing app. Users can set dates that they are available and app will 
    * [ ] Event detail screen after tapping on an event in the list
    * [ ] Can use Google Maps to add event location
    * [ ] (Optional) Sorting/searching list
+* [ ] Profile 
+   * [X] User can see profile
+   * [X] User can logout    
+   * [ ] User can naviage to friends list
 
 ### 3. Navigation
 
@@ -81,6 +85,10 @@ Scheduling outing app. Users can set dates that they are available and app will 
 Here's a walkthrough of implemented user stories:
 
 <img src='walkthrough1.gif' title='Video Walkthrough Part 1' width='' alt='Video Walkthrough' />
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
+### Video Walkthrough 2 - Profile Walkthrough 
+<img src='https://i.imgur.com/w1ZP89y.gif' title='Video Walkthrough 2 - Profile Walkthrough' width='' alt='Video Walkthrough' />
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 
