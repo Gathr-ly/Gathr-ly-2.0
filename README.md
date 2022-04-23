@@ -91,6 +91,10 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 <img src='https://i.imgur.com/w1ZP89y.gif' title='Video Walkthrough 2 - Profile Walkthrough' width='' alt='Video Walkthrough' />
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
+### Video Walkthrough 3 - Events Walkthrough 
+<img src='walkthrough2.gif' title='Video Walkthrough 3 - Events Walkthrough' width='' alt='Video Walkthrough' />
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
