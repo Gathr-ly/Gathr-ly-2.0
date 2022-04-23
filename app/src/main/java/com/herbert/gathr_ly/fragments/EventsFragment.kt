@@ -86,5 +86,4 @@ class EventsFragment : Fragment() {
     companion object {
         const val TAG = "EventsFragment"
     }
-
 }

@@ -54,7 +54,7 @@ class EventAddedFriendAdapter (
 
         fun bind(friend : ParseUser){
             friendName.text = friend.username
-            friendId.text = friend.objectId
+            friendId.text = "#" + friend.objectId
             user = friend
             removeButton.setOnClickListener {
                 clickListener?.onItemClick(itemView, adapterPosition)
