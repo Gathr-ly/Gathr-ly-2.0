@@ -164,6 +164,13 @@ class EventDetailActivity : AppCompatActivity() {
         }
 
         val adapter = ScheduleAdapter(this, hourBools)
+        adapter!!.setOnItemClickListener(object : ScheduleAdapter.OnItemClickListener {
+            override fun onItemClick(itemView: View?, position: Int) {
+                val viewHolder = rvEditSchedules.findViewHolderForAdapterPosition(position)
+                        as ScheduleAdapter.ViewHolder
+                viewHolder.onClick()
+            }
+        })
         rvEditSchedules.adapter = adapter
         rvEditSchedules.layoutManager = LinearLayoutManager(this)
     }

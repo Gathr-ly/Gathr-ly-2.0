@@ -10,9 +10,22 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ScheduleAdapter(val context: Context, val schedule: BooleanArray): RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
 
+    // Define listener member variable
+    private var listener: OnItemClickListener? = null
+
+    // Define the listener interface
+    interface OnItemClickListener {
+        fun onItemClick(itemView: View?, position: Int)
+    }
+
+    // Define the method that allows the parent activity or fragment to define the listener
+    fun setOnItemClickListener(listener: OnItemClickListener?) {
+        this.listener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.item_hour, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, listener)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -24,13 +37,15 @@ class ScheduleAdapter(val context: Context, val schedule: BooleanArray): Recycle
         return schedule.size
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class ViewHolder(itemView: View, clickListener: OnItemClickListener?) : RecyclerView.ViewHolder(itemView){
         val tvHour: TextView = itemView.findViewById(R.id.tvHour)
         val frame: FrameLayout = itemView.findViewById(R.id.frame)
         var hour = false
 
         init {
-            itemView.setOnClickListener(this)
+            frame.setOnClickListener{
+                clickListener?.onItemClick(itemView, adapterPosition)
+            }
         }
 
         fun bind(_hour: Boolean) {
@@ -43,7 +58,7 @@ class ScheduleAdapter(val context: Context, val schedule: BooleanArray): Recycle
             }
         }
 
-        override fun onClick(p0: View?) {
+        fun onClick() {
             hour = !hour
             schedule[adapterPosition] = hour
             bind(hour)
