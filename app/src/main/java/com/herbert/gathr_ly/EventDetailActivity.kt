@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.PopupWindow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -205,6 +206,7 @@ class EventDetailActivity : AppCompatActivity() {
         event.saveInBackground { e ->
             if (e == null) {
                 editSchedulePopupWindow.dismiss()
+                Toast.makeText(this, "Saved changes to schedule", Toast.LENGTH_SHORT).show()
                 loadData()
             } else {
                 Log.e(TAG, "error updating schedule")
