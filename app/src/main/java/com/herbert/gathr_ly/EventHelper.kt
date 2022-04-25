@@ -24,17 +24,27 @@ class EventHelper: ParseObject() {
         setUserId(user.objectId)
     }
 
+    fun getEventId(): String? {
+        return getString(KEY_EVENT_ID)
+    }
+
+    fun setEventId(id: String) {
+        put(KEY_EVENT_ID, id)
+    }
+
     fun getEvent(): Event? {
         return getParseObject(KEY_EVENT) as Event
     }
 
     fun setEvent(event: Event) {
         put(KEY_EVENT, event)
+        setEventId(event.objectId)
     }
 
     companion object {
         const val KEY_USER_ID = "userID"
         const val KEY_USER = "user"
+        const val KEY_EVENT_ID = "eventID"
         const val KEY_EVENT = "event"
     }
 }

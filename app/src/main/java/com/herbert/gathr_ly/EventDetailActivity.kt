@@ -6,6 +6,8 @@ import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewManager
+import android.widget.ImageButton
 import android.widget.PopupWindow
 import android.widget.TextView
 import android.widget.Toast
@@ -28,6 +30,8 @@ class EventDetailActivity : AppCompatActivity() {
     private lateinit var calendarDays: MaterialCalendarView
     private lateinit var event: Event
     private val daysList = mutableListOf<CalendarDay>()
+    private lateinit var btEdit: ImageButton
+    private lateinit var btDelete: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,16 +43,25 @@ class EventDetailActivity : AppCompatActivity() {
         tvUsers = findViewById(R.id.tvUsers)
         tvBestTimes = findViewById(R.id.tvBestTimes)
         calendarDays = findViewById(R.id.calendarDays)
+//        btEdit = findViewById(R.id.btEdit)
+        btDelete = findViewById(R.id.btDelete)
 
         loadData()
     }
 
     private fun loadData() {
         val query: ParseQuery<Event> = ParseQuery.getQuery(Event::class.java)
+        query.include(Event.KEY_CREATOR)
         query.whereEqualTo(EventAdapter.KEY_OBJECT_ID, intent.getStringExtra(EventAdapter.KEY_OBJECT_ID))
         query.getFirstInBackground { _event, e ->
             if (e == null) {
                 event = _event
+
+                if (event.getCreator()!!.objectId != ParseUser.getCurrentUser().objectId) {
+//                    (btEdit.parent as ViewManager).removeView(btEdit)
+                    (btDelete.parent as ViewManager).removeView(btDelete)
+                }
+
                 tvName.text = "Name: " + event.getName()
                 tvCreator.text = "Creator: " + event.getCreatorUsername()
                 tvDetails.text = "Details: " + event.getDetails()
@@ -192,6 +205,49 @@ class EventDetailActivity : AppCompatActivity() {
 
     fun cancelAction(view: View) {
         editSchedulePopupWindow.dismiss()
+    }
+
+//    private lateinit var editEventPopupView: View
+//    private lateinit var editEventPopupWindow: PopupWindow
+//
+//    fun editDetailAction(view: View) {
+//        editSchedulePopupView = LayoutInflater.from(this).inflate(R.layout.activity_new_event, null)
+//
+//    }
+//
+//    // Save edited event info (must have same name because of xml property)
+//    fun newEventAction(view: View) {
+//
+//    }
+
+    private lateinit var deletePopupView: View
+    private lateinit var deletePopupWindow: PopupWindow
+
+    fun deleteDetailAction(view: View) {
+        deletePopupView = LayoutInflater.from(this).inflate(R.layout.popup_delete, null)
+        val width = ConstraintLayout.LayoutParams.MATCH_PARENT
+        val height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+        val focusable = true
+        deletePopupWindow = PopupWindow(deletePopupView, width, height, focusable)
+        deletePopupWindow.showAtLocation(calendarDays, Gravity.CENTER, 0, 0)
+    }
+
+    fun confirmDeleteAction(view: View) {
+        val query: ParseQuery<EventHelper> = ParseQuery.getQuery(EventHelper::class.java)
+        query.whereEqualTo(EventHelper.KEY_EVENT_ID, event.objectId)
+        query.findInBackground { eventHelpers, e ->
+            if (e == null) {
+                for (eventHelper in eventHelpers) {
+                    eventHelper.deleteInBackground()
+                }
+                event.deleteInBackground()
+                Toast.makeText(this, "Deleted event", Toast.LENGTH_SHORT).show()
+                finish()
+            } else {
+                Log.e(TAG, "Error fetching event helpers")
+                e.printStackTrace()
+            }
+        }
     }
 
     fun saveAction(view: View) {

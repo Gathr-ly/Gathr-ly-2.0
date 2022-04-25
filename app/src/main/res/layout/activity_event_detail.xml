@@ -68,6 +68,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:mcv_selectionMode="single" />
 
+<!--    <ImageButton-->
+<!--        android:id="@+id/btEdit"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:srcCompat="@drawable/ic_baseline_edit_24"-->
+<!--        android:layout_marginStart="10dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        android:onClick="editDetailAction"/>-->
+
+    <ImageButton
+        android:id="@+id/btDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_baseline_delete_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:onClick="deleteDetailAction"/>
+
     <Button
         android:id="@+id/btBack"
         android:layout_width="wrap_content"
