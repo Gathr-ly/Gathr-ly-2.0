@@ -95,6 +95,10 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 <img src='walkthrough2.gif' title='Video Walkthrough 3 - Events Walkthrough' width='' alt='Video Walkthrough' />
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
+### Video Walkthrough 4 - Full App Walkthrough 
+<img src='walkthrough3.gif' title='Video Walkthrough 3 - Events Walkthrough' width='' alt='Video Walkthrough' />
+GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
 
 ## Wireframes
 [Add picture of your hand sketched wireframes in this section]
