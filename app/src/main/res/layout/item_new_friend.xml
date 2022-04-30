@@ -33,13 +33,13 @@
         tools:text="#QGpmIavqFX" />
 
     <ImageButton
-        android:id="@+id/removeButton"
+        android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_person_remove_24" />
+        app:srcCompat="@drawable/ic_baseline_person_add_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
