@@ -86,52 +86,81 @@ class NewEventActivity : AppCompatActivity() {
 
     }
 
+    // Changed to query friends more easily with FriendH's
     private fun queryFromFriends(query : String) {
         filteredUsers.clear()
         val filteredFriends = mutableListOf<ParseUser>()
 
-        val query1: ParseQuery<Friend> = ParseQuery.getQuery(Friend::class.java)
-        query1.include("user2")
-        query1.whereEqualTo("user1", ParseUser.getCurrentUser())
+        val queryFriends: ParseQuery<FriendH> = ParseQuery.getQuery(FriendH::class.java)
+        queryFriends.whereEqualTo(FriendH.KEY_USER_ID, ParseUser.getCurrentUser().objectId)
+        queryFriends.include(FriendH.KEY_FRIEND)
+        queryFriends.addDescendingOrder("createdAt")
 
-        val query2: ParseQuery<Friend> = ParseQuery.getQuery(Friend::class.java)
-        query2.include("user1")
-        query2.whereEqualTo("user2", ParseUser.getCurrentUser())
-
-        query1.findInBackground { filtered, e ->
-            if (e == null) {
+        queryFriends.findInBackground { filtered, e ->
+            if (e != null) {
+                // Something has gone wrong
+                Log.e(TAG, "Error fetching filtered friends")
+                e.printStackTrace()
+            } else {
                 if (filtered == null || filtered.size == 0) {
                     Toast.makeText(this, "Invalid Username", Toast.LENGTH_SHORT).show()
                 } else {
-                    for (friend in filtered) {
-                        Log.i(TAG, "Username: " + friend.getuser2()?.username + " UserId: " + friend.objectId)
-                        friend.getuser2()?.let { filteredFriends.add(it) }
+                    for (friendH in filtered) {
+                        filteredFriends.add(friendH.getFriend()!!)
+                        Log.i(TAG, "Username: " + friendH.getFriend()?.username + " UserId: " + friendH.objectId)
                     }
-                    query2.findInBackground { filtered, e ->
-                        if (e == null) {
-                            if (filtered == null || filtered.size == 0) {
-                                Toast.makeText(this, "Invalid Username", Toast.LENGTH_SHORT).show()
-                            } else {
-                                for (friend in filtered) {
-                                    Log.i(TAG, "Username: " + friend.getuser1()?.username + " UserId: " + friend.objectId)
-                                    friend.getuser1()?.let { filteredFriends.add(it) }
-                                }
-                                for (user in filteredFriends) {
-                                    if (user.username.startsWith(query, true)) {
-                                        filteredUsers.add(user)
-                                    }
-                                }
-                                filteredFriendAdapter!!.notifyDataSetChanged()
-                            }
-                        } else {
-                            Log.e(TAG, "Error fetching filtered friends")
+                    for (user in filteredFriends) {
+                        if (user.username.startsWith(query, true)) {
+                            filteredUsers.add(user)
                         }
                     }
+                    filteredFriendAdapter!!.notifyDataSetChanged()
                 }
-            } else {
-                Log.e(TAG, "Error fetching filtered friends")
             }
         }
+
+//        val query1: ParseQuery<Friend> = ParseQuery.getQuery(Friend::class.java)
+//        query1.include("user2")
+//        query1.whereEqualTo("user1", ParseUser.getCurrentUser())
+//
+//        val query2: ParseQuery<Friend> = ParseQuery.getQuery(Friend::class.java)
+//        query2.include("user1")
+//        query2.whereEqualTo("user2", ParseUser.getCurrentUser())
+//
+//        query1.findInBackground { filtered, e ->
+//            if (e == null) {
+//                if (filtered == null || filtered.size == 0) {
+//                    Toast.makeText(this, "Invalid Username", Toast.LENGTH_SHORT).show()
+//                } else {
+//                    for (friend in filtered) {
+//                        Log.i(TAG, "Username: " + friend.getuser2()?.username + " UserId: " + friend.objectId)
+//                        friend.getuser2()?.let { filteredFriends.add(it) }
+//                    }
+//                    query2.findInBackground { filtered, e ->
+//                        if (e == null) {
+//                            if (filtered == null || filtered.size == 0) {
+//                                Toast.makeText(this, "Invalid Username", Toast.LENGTH_SHORT).show()
+//                            } else {
+//                                for (friend in filtered) {
+//                                    Log.i(TAG, "Username: " + friend.getuser1()?.username + " UserId: " + friend.objectId)
+//                                    friend.getuser1()?.let { filteredFriends.add(it) }
+//                                }
+//                                for (user in filteredFriends) {
+//                                    if (user.username.startsWith(query, true)) {
+//                                        filteredUsers.add(user)
+//                                    }
+//                                }
+//                                filteredFriendAdapter!!.notifyDataSetChanged()
+//                            }
+//                        } else {
+//                            Log.e(TAG, "Error fetching filtered friends")
+//                        }
+//                    }
+//                }
+//            } else {
+//                Log.e(TAG, "Error fetching filtered friends")
+//            }
+//        }
     }
 
     private lateinit var calendar: MaterialCalendarView

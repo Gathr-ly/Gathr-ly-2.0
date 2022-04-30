@@ -2,6 +2,7 @@ package com.herbert.gathr_ly
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -28,17 +29,16 @@ class NewFriendActivity : AppCompatActivity() {
         newfriendRecyclerView.adapter = newfriendadapter
         newfriendRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        findViewById<Button>(R.id.nf_searchButton).setOnClickListener{
+        findViewById<Button>(R.id.nf_searchButton).setOnClickListener {
             val nf_username = findViewById<EditText>(R.id.nf_username).text.toString()
             val nf_userid = findViewById<EditText>(R.id.nf_userid).text.toString()
-            if(nf_username == ParseUser.getCurrentUser().username || nf_userid == ParseUser.getCurrentUser().objectId){
+            if (nf_username == ParseUser.getCurrentUser().username || nf_userid == ParseUser.getCurrentUser().objectId) {
                 newfriendadapter.clear()
-                Toast.makeText(this, "You cannot add yourself as a friend", Toast.LENGTH_SHORT).show()
-            }
-            else if(nf_username != "" || nf_userid != "") {
+                Toast.makeText(this, "You cannot add yourself as a friend", Toast.LENGTH_SHORT)
+                    .show()
+            } else if (nf_username != "" || nf_userid != "") {
                 queryNewFriend(nf_username, nf_userid)
-            }
-            else{
+            } else {
                 newfriendadapter.clear()
                 Toast.makeText(this, "No input", Toast.LENGTH_SHORT).show()
             }
@@ -46,24 +46,22 @@ class NewFriendActivity : AppCompatActivity() {
     }
 
 
-
-    fun queryNewFriend(nf_username: String, nf_userid: String){
+    fun queryNewFriend(nf_username: String, nf_userid: String) {
         //Specify which class to query
         val query: ParseQuery<ParseUser> = ParseUser.getQuery()
 
-        if(nf_userid != "" && nf_userid != null) {
+        if (nf_userid != "" && nf_userid != null) {
             query.whereEqualTo(ParseUser.KEY_OBJECT_ID, nf_userid)
         }
-        if(nf_username != "" && nf_username != null){
+        if (nf_username != "" && nf_username != null) {
             query.whereEqualTo("username", nf_username)
         }
 
         query.findInBackground { newFriends, e ->
             if (e == null) {
-                if(newFriends == null || newFriends.size == 0){
+                if (newFriends == null || newFriends.size == 0) {
                     Toast.makeText(this, "Invalid Username/UserId", Toast.LENGTH_SHORT).show()
-                }
-                else{
+                } else {
                     for (friend in newFriends) {
                         Log.i(TAG, "Username: " + friend.username + " UserId: " + friend.objectId)
                         newfriendadapter.clear()
@@ -72,11 +70,16 @@ class NewFriendActivity : AppCompatActivity() {
                 }
             } else {
                 Log.e(TAG, "Error fetching User")
+                e.printStackTrace()
             }
         }
     }
 
-    companion object{
-        val TAG = "NewFriendActivity"
+    fun backDetailAction(view: View) {
+        finish()
+    }
+
+    companion object {
+        const val TAG = "NewFriendActivity"
     }
 }
