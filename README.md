@@ -26,13 +26,12 @@ Scheduling outing app. Users can set dates that they are available and app will 
 
 * [x] Login/Sign Up page - User logs in to app if they have an account, otherwise they will sign up for an account.
 * [x] Add a friend - user can add a friend to contact list
-* [ ] Invite a friend using a code 
-* [ ] User can add availability
-* [ ] User can create event
-* [ ] User can edit event
+* [x] User can add availability
+* [x] User can create event
+* [x] User can edit event
 * [ ] User can delete event
-* [ ] User can view all events
-* [ ] User can view overlapping available times for everybody/most people
+* [x] User can view all events
+* [x] User can view overlapping available times for everybody/most people
 * [ ] Users in same event can chat together
 
 **Optional Nice-to-have Stories**
@@ -43,18 +42,18 @@ Scheduling outing app. Users can set dates that they are available and app will 
 ### 2. Screen Archetypes
 
 * [x] Login/Signup - User signs up or logs into their account
-* [ ] Friend list
-    * [ ] Add a friend button
-    * [ ] Can remove friends
+* [x] Friend list
+    * [x] Add a friend button
+    * [x] Can remove friends
     * [ ] See friend requests
-* [ ] Events list
-   * [ ] Create an event button
-   * [ ] See incoming event requests after tapping on a different button?
-   * [ ] Can edit and delete events
-   * [ ] Event detail screen after tapping on an event in the list
+* [x] Events list
+   * [x] Create an event button
+   * [x] See incoming event requests after tapping on a different button?
+   * [x] Can edit and delete events
+   * [x] Event detail screen after tapping on an event in the list
    * [ ] Can use Google Maps to add event location
-   * [ ] (Optional) Sorting/searching list
-* [ ] Profile 
+   * [x] (Optional) Sorting/searching list
+* [x] Profile 
    * [X] User can see profile
    * [X] User can logout    
    * [ ] User can naviage to friends list
@@ -65,20 +64,20 @@ Scheduling outing app. Users can set dates that they are available and app will 
 
 * [x] Login/signup activity
 * [x] Main Activity com.herbert.gathr_ly.fragments
-    * [ ] Events List as default fragment
-    * [ ] Friends List
-* [ ] Event detail activity
+    * [x] Events List as default fragment
+    * [x] Friends List
+* [x] Event detail activity
 
 
 **Flow Navigation** (Screen to Screen)
 
 * [x] Login Screen/Sign up screen => Event list
-* [ ] Create event button on event list => Create event screen 
-* [ ] Create event screen => Event List
-* [ ] Create friend button on friend list => Create friend screen
-* [ ] Create event => google maps screen
+* [x] Create event button on event list => Create event screen 
+* [x] Create event screen => Event List
+* [x] Create friend button on friend list => Create friend screen
+* [x] Create event => google maps screen
 * [ ] Google maps screen => create event
-* [ ] Create event => event list
+* [x] Create event => event list
 
 ### Video Walkthrough 1
 
