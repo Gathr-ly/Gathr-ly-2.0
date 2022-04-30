@@ -80,17 +80,16 @@ class NewFriendAdpater (val context: Context, val friends: MutableList<ParseUser
                                 Toast.makeText(itemView.context, "Failed to add friend", Toast.LENGTH_SHORT).show()
                             } else {
                                 Log.i(TAG, "Successfully added friend")
-                                Toast.makeText(itemView.context, "Successfully added friend", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                        friendH2.saveInBackground { e ->
-                            if (e != null) {
-                                Log.e(TAG, "Error saving friend")
-                                e.printStackTrace()
-                                Toast.makeText(itemView.context, "Failed to add friend", Toast.LENGTH_SHORT).show()
-                            } else {
-                                Log.i(TAG, "Successfully added friend")
-                                Toast.makeText(itemView.context, "Successfully added friend", Toast.LENGTH_SHORT).show()
+                                friendH2.saveInBackground { e ->
+                                    if (e != null) {
+                                        Log.e(TAG, "Error saving friend")
+                                        e.printStackTrace()
+                                        Toast.makeText(itemView.context, "Failed to add friend", Toast.LENGTH_SHORT).show()
+                                    } else {
+                                        Log.i(TAG, "Successfully added friend")
+                                        Toast.makeText(itemView.context, "Successfully added friend", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
                             }
                         }
                     }
